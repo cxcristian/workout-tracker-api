@@ -1,1 +1,1 @@
-console.log("funcionando")
+console.log("workout-tracker app");
