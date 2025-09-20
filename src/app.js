@@ -42,7 +42,7 @@ const db = {
       id: 1,
       nombre: "Sentadillas",
       descripcion: "Ejercicio básico de piernas",
-      categoria: "Piernas"
+      categoria: "Piernas central"
     },
     {
       id: 2,
@@ -70,14 +70,14 @@ const db = {
       idPlan: 1,
       fechaHora: "2025-09-20T10:00:00Z",
       estado: "pendiente",
-      observaciones: "Sesión de prueba"
+      observaciones: "Se murio por jugarle al vrg"
     },
     {
       id: 2,
       idPlan: 1,
       fechaHora: "2025-09-18T18:30:00Z",
       estado: "completado",
-      observaciones: "Bien ejecutado"
+      observaciones: "le dio un babaiado"
     }
   ],
 
@@ -91,7 +91,7 @@ const db = {
         totalSeries: 60,
         totalRepeticiones: 600
       },
-      resumen: "Buen progreso en fuerza y resistencia"
+      resumen: "Se purgo en algunos ejercicios... mediocre"
     }
   ]
 };
