@@ -10,8 +10,10 @@ app.use(express.json())
 //const port = 8000 //puerto de escucha
 //Inicializacion del servidor
 
-app.get("/", (req, res)=>{
-    res.send("Hola mi servidor de express")
+let tokens = [] // Almacenamiento simple de tokens
+
+app.get("/", (req, res) => {
+  res.send("Hola mi servidor de express")
 })
 
 
@@ -107,23 +109,57 @@ const db = {
 //Metodo GET
 
 // Lista de usuarios, TODOS
-app.get("/users",(req, res)=>{
-    res.json(db.usuarios)
-    
-})
+app.get("/users", (req, res) => {
+  let resultados = db.usuarios;
+
+  const { nombre, email, limit } = req.query;
+
+  // Filtrar por nombre si lo envían
+  if (nombre) {
+    resultados = resultados.filter(resultado =>
+      resultado.nombre.toLowerCase().includes(nombre.toLowerCase())
+    );
+  }
+
+  // Filtrar por email si lo envían
+  if (email) {
+    resultados = resultados.filter(resultado =>
+      resultado.email.toLowerCase().includes(email.toLowerCase())
+    );
+  }
+
+  // Limitar cantidad de resultados
+  if (limit) {
+    resultados = resultados.slice(0, parseInt(limit));
+  }
+  resultados.push(req.url, req.headers)
+
+  res.json(resultados);
+});
 
 //Llamar a usuario por su ID, estos ":" hacen que sea dinamico
-app.get("/users/:id", (req, res)=>{
-    //se captura el parametro dinamico que es id
-    const id = req.params.id
-    //guardamos al usuario que concida con id
-    const usuario = db.usuarios.find(usuario => usuario.id === parseInt(id))
-    //si no existe se manda el error 404 not found vaina
-    if(!usuario){
-        return res.status(400).send("Usuario no encontrado")
-    }
-    //si existe se manda el usuario
-    res.send("Usuario por ID: " + JSON.stringify(usuario,null,2))
+app.get("/users/:id", (req, res) => {
+  //se captura el parametro dinamico que es id
+  const id = req.params.id
+  //guardamos al usuario que concida con id
+  const usuario = db.usuarios.find(usuario => usuario.id === parseInt(id))
+  //si no existe se manda el error 404 not found vaina
+  if (!usuario) {
+    return res.status(400).send("Usuario no encontrado")
+  }
+
+
+  //si existe se manda el usuario
+  res.send("Usuario por ID: " + JSON.stringify(usuario, null, 2))
+})
+
+//Get para ver los tokens activos
+app.get("/users/tokens", (req, res) => {
+  if (!tokens.length === 0) {
+    return res.status(400).json({ error: "No hay tokens activos" })
+  }
+
+  res.json(tokens)
 })
 
 
@@ -143,32 +179,93 @@ app.get("/users/:name",(req, res)=>{
 //Decidi usar json, toca habilitar el middleware
 
 
-app.post("/users",(req,res)=>{
-    //id automatico creo al igual que la fecha de registro... creo
-    
-     const { nombre, email, contraseña } = req.body;
-     
-     //Validaciones
+app.post("/users", (req, res) => {
+  //id automatico creo al igual que la fecha de registro... creo
 
-     if(!nombre || !email || !contraseña || nombre.trim()==="" || email.trim()==="" || contraseña.trim()===""){
-        return res.status(400).json({error: "Faltan datos obligatorios"})
-    }
-    //Procesar datos validados
-    const NuevoUsuario = {
-        id: db.usuarios.length + 1,
-        nombre,
-        email,
-        contraseña,
-        fechaRegistro: new Date().toISOString()      
-    }
-    //subir los datos a la "base de datos"
-    db.usuarios.push(NuevoUsuario);
-     res.status(201).json({
-        mensaje: 'Producto creado exitosamente',
-        NuevoUsuario
-    });
+  const { nombre, email, contraseña } = req.body;
+
+  //Validaciones
+
+  if (!nombre || !email || !contraseña || nombre.trim() === "" || email.trim() === "" || contraseña.trim() === "") {
+    return res.status(400).json({ error: "Faltan datos obligatorios" })
+  }
+  //Procesar datos validados
+  const NuevoUsuario = {
+    id: db.usuarios.length + 1,
+    nombre,
+    email,
+    contraseña,
+    fechaRegistro: new Date().toISOString()
+  }
+  //subir los datos a la "base de datos"
+  db.usuarios.push(NuevoUsuario);
+  res.status(201).json({
+    mensaje: 'Producto creado exitosamente',
+    NuevoUsuario
+  });
 })
 
-app.listen(port, ()=>{
-    console.log(`Servidor corriendo en http://localhost:${port}`)
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`)
+})
+
+//metodo POST para iniciar sesion
+app.post("/users/login", (req, res) => {
+  const { email, contraseña } = req.body
+  // validaciones usando el array metod find que nos tira un booleao
+  const usuario = db.usuarios.find(usuario => usuario.email === email && usuario.contraseña === contraseña)
+
+  if (!usuario) {
+    return res.status(401).json({ error: "Credenciales invalidas" })
+  }
+
+  // Generar token simple
+  const token = `${usuario.id}-${Date.now()}`;
+  tokens.push({ userId: usuario.id, token });
+
+  res.json({ mensaje: "Login exitoso", token });
+})
+
+// log out para el usuario
+app.post("/users/logout", (req, res) => {
+
+
+  const { token } = req.body;
+  exist = tokens.find(t => t.token === token);
+  if (!exist) {
+    return res.status(400).json({ error: "Token invalido o ya cerrado sesion" })
+  }
+  // removemos el token de la lista, al usar el filter
+  // esto buscando quien es diferente de la lista de tokens con el token dado en req, y se queda con los que son diferentes
+  tokens = tokens.filter(t => t.token !== token);
+
+
+  res.json({ mensaje: "Logout exitoso" });
+})
+
+
+
+//Metodo PATCH para actualizar a mis estimados usuariso, ya que me permite actualizar solo lo que yo quiera
+
+app.patch("/users/:id", (req, res) => {
+  const id = parseInt(req.params.id)
+  const actualizaciones = req.body
+
+  const usuario = db.usuarios.find(usuario => usuario.id === id)
+  if (!usuario) {
+    return res.status(404).json({ error: "usuario NO encontrado" })
+  }
+
+
+  // Lista de campos que sí se pueden modificar
+  const camposPermitidos = ["nombre", "email", "contraseña"];
+
+  // Actualizar solo los campos permitidos
+  for (let campo of camposPermitidos) {
+    if (camposPermitidos.includes(campo) && actualizaciones[campo].trim() !== "") {
+      usuario[campo] = actualizaciones[campo];
+    }
+  }
+  res.status(200).json({ mensaje: "Usuario actualizado exitosamente", usuario })
+
 })
