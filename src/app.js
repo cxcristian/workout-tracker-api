@@ -11,16 +11,14 @@ const { port } = require('./config/env'); // Import the port from the env file
 console.log(port);
 
 const app = express()//creamos una instancia de express, donde app tiene todo de express
+
+// Middleware para parsear JSON
+
 app.use(express.json())
 //se comenta el puerto ya que no se tiene que inicializar al ser llamado de nuestro config/env.js
 //const port = 8000 //puerto de escucha
 //Inicializacion del servidor
 
-
-
-
-// Middleware para parsear JSON
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
@@ -29,3 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/",(req,res)=>{
     res.send("API probablemente funcionando")
 })
+
+
+// Montar las rutas principales
+app.use("/api", routes);
+
+// Iniciar servidor
+app.listen(port, () => {
+  console.log(`Servidor corriendo en http://localhost:${port}`);
+});
