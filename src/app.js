@@ -9,9 +9,12 @@ const app = express()//creamos una instancia de express, donde app tiene todo de
 //const port = 8000 //puerto de escucha
 //Inicializacion del servidor
 
-app.get("/", (req, res)=>{
-    res.send("Hola mi servidor de express")
-})
+// Middleware para parsear JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+// importacion de las rutas, las cualses van a llevar a la carpeta routes
+const routes = require('./routes');
+app.use("/api", routes)
 
 app.listen(port, ()=>{
     console.log(`Servidor corriendo en http://localhost:${port}`)
