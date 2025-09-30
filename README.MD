@@ -1,4 +1,4 @@
-# Notas de Cristian
+# Notas de Cristian feat/workouts
 
 No puede ser, no debi ver **workout**, necesito buscar una forma de autenticarlo, ya cree la rama y todo, fue un error, va a ser mas trabajo del que yo aun no puedo imaginar
 
@@ -12,3 +12,7 @@ No puede ser, no debi ver **workout**, necesito buscar una forma de autenticarlo
 - **IMPORTANTE:** solo los usuarios autenticados pueden modificar sus vainas, es decir AaAaAAa!!!!!!
 ## fecha[27/09/2025]
 - se creo los controllers y el manejo de rutas funcional. dejo aqui para enfocarme en ejercicios que esta mas facil similar a users... 
+
+## Datos para usar en feat/workouts
+En mi corta investigacion vi que se menciono jwt jason web token, entonces voy usar eso para autenticar TODAS las acciones (pertinentes)
+npm install jsonwebtoken
