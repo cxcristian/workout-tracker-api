@@ -1,5 +1,5 @@
 // Simulación de base de datos en memoria
-let tokens = []; // Almacenamiento de tokens
+
 
 const db = {
   usuarios: [
@@ -15,6 +15,13 @@ const db = {
       nombre: "Santiago",
       email: "santiago@mail.com",
       contraseña: "abcdef",
+      fechaRegistro: "2025-09-10T08:30:00Z"
+    },
+    {
+      id: 3,
+      nombre: "admin",
+      email: "admin@mail.com",
+      contraseña: "123",
       fechaRegistro: "2025-09-10T08:30:00Z"
     }
   ],
@@ -78,4 +85,4 @@ const db = {
   ]
 };
 
-module.exports = { db, tokens };
+module.exports = { db };

@@ -1,7 +1,8 @@
 //Importacion de la base de datos simulada
-const { db, tokens } = require("../db/db")
+const { db } = require("../db/db")
 
-// -------------------
+
+// -------------------         
 // Métodos GET
 // -------------------
 
