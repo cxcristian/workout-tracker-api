@@ -16,11 +16,17 @@ router.get("/", authMiddleware,usersController.getUsers);
 router.get("/:id", authMiddleware, usersController.getUserById);
 
 // Métodos POST
+//=====================
+//crear usuario - no necesita verificacion de id
 router.post("/", authMiddleware, usersController.createUser);
+//loguearse tampoco
 router.post("/login", login);
+//cerrar sesion menos
 router.post("/logout",authMiddleware ,logout);
 
 // PUT / PATCH
+//=====================
+// actualizar 
 router.put("/:id", authMiddleware, usersController.updateUser);
 router.patch("/:id", authMiddleware, usersController.patchUser);
 

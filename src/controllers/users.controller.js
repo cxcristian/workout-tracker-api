@@ -51,10 +51,19 @@ const getUsers = (req, res) => {
     });
 };
 
-// GET /v1/users/:id - obtener usuario por ID
+// GET /v1/users/:id - obtener usuario por ID - solo si es él
 const getUserById = (req, res) => {
-    const { id } = req.params;
-    const user = db.usuarios.find(u => u.id === parseInt(id));
+    // ID del usuario que se quiere obtener (de la URL)
+    const requestedId = parseInt(req.params.id);
+    // ID del usuario que está logueado (del token JWT)
+    const loggedInUserId = req.userId;
+
+    // --- Verificación de Autorización ---
+    if (requestedId !== loggedInUserId) {
+        return res.status(403).json({ error: "Acceso denegado. Solo puedes ver tu propia información." });
+    }
+
+    const user = db.usuarios.find(u => u.id === requestedId);
 
     if (!user) {
         return res.status(404).json({
@@ -116,7 +125,7 @@ const createUser = (req, res) => {
         }
     });
 };
-
+/*
 // POST /v1/users/login - iniciar sesión
 const login = (req, res) => {
     const { email, contraseña } = req.body;
@@ -134,9 +143,10 @@ const login = (req, res) => {
     tokens.push({ userId: usuario.id, token });
 
     res.json({ mensaje: "Login exitoso", token });
-};
+};*/
 
 // POST /v1/users/logout - cerrar sesión
+/*
 const logout = (req, res) => {
     const { token } = req.body;
     const exist = tokens.find(t => t.token === token);
@@ -149,7 +159,7 @@ const logout = (req, res) => {
     tokens = tokens.filter(t => t.token !== token);
 
     res.json({ mensaje: "Logout exitoso" });
-};
+};*/
 
 // -------------------
 // Métodos PUT / PATCH
@@ -160,6 +170,11 @@ const updateUser = (req, res) => {
     const { id } = req.params;
     const { nombre, email, contraseña } = req.body;
 
+    const loggedInUserId = req.userId;
+    // --- Verificación de Autorización ---
+    if (parseInt(id) !== parseInt(loggedInUserId)) {
+        return res.status(403).json({ error: "Acceso denegado. Solo puedes Actualizar tu información." });
+    }
     const index = db.usuarios.findIndex(u => u.id === parseInt(id));
 
     if (index === -1) {
@@ -204,6 +219,12 @@ const patchUser = (req, res) => {
     const id = parseInt(req.params.id);
     const actualizaciones = req.body;
 
+    const loggedInUserId = req.userId;
+    // --- Verificación de Autorización ---
+    if (parseInt(id) !== parseInt(loggedInUserId)) {
+        return res.status(403).json({ error: "Acceso denegado. Solo puedes Actualizar tu información." });
+    }
+
     const usuario = db.usuarios.find(usuario => usuario.id === id);
 
     if (!usuario) {
@@ -233,7 +254,16 @@ const patchUser = (req, res) => {
 
 const deleteUser = (req, res) => {
     const { id } = req.params;
+
+    const loggedInUserId = req.userId;
+    // --- Verificación de Autorización ---
+    if (parseInt(id) !== parseInt(loggedInUserId)) {
+        return res.status(403).json({ error: "Acceso denegado. No eres el dueño de este usuario." });
+    }
+
     const index = db.usuarios.findIndex(u => u.id === parseInt(id));
+
+    
 
     if (index === -1) {
         return res.status(404).json({ error: "Usuario no encontrado mano" });
@@ -258,8 +288,7 @@ module.exports = {
     getUsers,
     getUserById,
     createUser,
-    login,
-    logout,
+    
     updateUser,
     patchUser,
     deleteUser
