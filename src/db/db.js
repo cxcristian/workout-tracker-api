@@ -23,6 +23,20 @@ const db = {
       email: "admin@mail.com",
       contraseña: "123",
       fechaRegistro: "2025-09-10T08:30:00Z"
+    },
+    {
+      id: 4,
+      nombre: "Valentina",
+      email: "valen@mail.com",
+      contraseña: "valen2025",
+      fechaRegistro: "2025-09-22T14:45:00Z"
+    },
+    {
+      id: 5,
+      nombre: "Andrés",
+      email: "andres@mail.com",
+      contraseña: "pass123",
+      fechaRegistro: "2025-09-05T09:15:00Z"
     }
   ],
 
@@ -38,6 +52,24 @@ const db = {
       nombre: "Press de banca",
       descripcion: "Ejercicio de pecho con barra",
       categoria: "Pecho"
+    },
+    {
+      id: 3,
+      nombre: "Peso muerto",
+      descripcion: "Trabajo de espalda y piernas con barra",
+      categoria: "Espalda"
+    },
+    {
+      id: 4,
+      nombre: "Dominadas",
+      descripcion: "Ejercicio con barra fija para espalda",
+      categoria: "Espalda"
+    },
+    {
+      id: 5,
+      nombre: "Curl de bíceps",
+      descripcion: "Trabajo de brazos con mancuernas",
+      categoria: "Brazos"
     }
   ],
 
@@ -50,6 +82,15 @@ const db = {
         { idEjercicio: 2, repeticiones: 10, series: 3, peso: "30kg" }
       ],
       fechaCreacion: "2025-09-15T09:00:00Z"
+    },
+    {
+      id: 2,
+      idUsuario: 2,
+      ejercicios: [
+        { idEjercicio: 3, repeticiones: 8, series: 5, peso: "70kg" },
+        { idEjercicio: 5, repeticiones: 15, series: 3, peso: "15kg" }
+      ],
+      fechaCreacion: "2025-09-16T11:00:00Z"
     }
   ],
 
@@ -67,6 +108,20 @@ const db = {
       fechaHora: "2025-09-18T18:30:00Z",
       estado: "completado",
       observaciones: "le dio un babaiado"
+    },
+    {
+      id: 3,
+      idPlan: 2,
+      fechaHora: "2025-09-21T07:00:00Z",
+      estado: "pendiente",
+      observaciones: "Primera sesión del plan de Santiago"
+    },
+    {
+      id: 4,
+      idPlan: 2,
+      fechaHora: "2025-09-19T19:00:00Z",
+      estado: "completado",
+      observaciones: "Entrenamiento fuerte de espalda y brazos"
     }
   ],
 
@@ -81,6 +136,28 @@ const db = {
         totalRepeticiones: 600
       },
       resumen: "Se purgo en algunos ejercicios... mediocre"
+    },
+    {
+      id: 2,
+      idUsuario: 2,
+      rangoFechas: "2025-09-01 a 2025-09-19",
+      estadisticas: {
+        ejerciciosCompletados: 20,
+        totalSeries: 75,
+        totalRepeticiones: 800
+      },
+      resumen: "Buen progreso en fuerza y constancia"
+    },
+    {
+      id: 3,
+      idUsuario: 3,
+      rangoFechas: "2025-09-10 a 2025-09-19",
+      estadisticas: {
+        ejerciciosCompletados: 5,
+        totalSeries: 20,
+        totalRepeticiones: 200
+      },
+      resumen: "Actividad baja, necesita más disciplina"
     }
   ]
 };
