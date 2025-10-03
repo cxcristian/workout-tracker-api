@@ -16,3 +16,7 @@ No puede ser, no debi ver **workout**, necesito buscar una forma de autenticarlo
 ## Datos para usar en feat/workouts
 En mi corta investigacion vi que se menciono jwt jason web token, entonces voy usar eso para autenticar TODAS las acciones (pertinentes)
 npm install jsonwebtoken
+
+## fecha[2/10/2025]
+- Workouts son ejercicios, no sesiones... por ende No se tiene problema si alguien quiere acceder a ver toda la lista
+- Solo, si este quiere modificar o crear algo, ya que tiene que tener sesion iniciada, yo me complique la vida **Fin del comunicado**

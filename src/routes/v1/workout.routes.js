@@ -10,7 +10,10 @@ const { logout } = require("../../controllers/logout.controller")
 const authMiddleware = require("../../middleware/auth.middleware")
 
 //gets de workouts
-//Eliminar si no quiero que esto este al alcance de todos
+
+//obtener todos los ejercicios
+router.get("/", authMiddleware, workoutsControllers.getWorkouts)
+//obtener la vaina por id
 router.get("/:id", authMiddleware, workoutsControllers.getWorkoutsById)
 
 //===============
@@ -18,8 +21,17 @@ router.get("/:id", authMiddleware, workoutsControllers.getWorkoutsById)
 router.post("/login", login )
 router.post("/logout",authMiddleware, logout)
 
+//Post para crear un ejercicio
+router.post("/", authMiddleware, workoutsControllers.createWorkout)
 
+//put
+router.put("/:id", authMiddleware, workoutsControllers.updateWorkout)
 
+//patch
+router.patch("/:id", authMiddleware, workoutsControllers.patchWorkout)
+
+//delete
+router.delete("/:id", authMiddleware, workoutsControllers.deleteWorkout)
 
 
 module.exports = router
