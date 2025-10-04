@@ -1,3 +1,4 @@
+
 //importacion basica de las librerias
 
 const express = require("express")
@@ -17,5 +18,9 @@ const workoutRoutes = require("./workout.routes")
 
 router.use("/workouts", workoutRoutes)
 
+
+const sessionsRoutes = require("./sessions.routes")
+
+router.use("/sessions", sessionsRoutes)
 
 module.exports = router

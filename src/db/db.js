@@ -78,8 +78,8 @@ const db = {
       id: 1,
       idUsuario: 1,
       ejercicios: [
-        { idEjercicio: 1, repeticiones: 12, series: 4, peso: "40kg" },
-        { idEjercicio: 2, repeticiones: 10, series: 3, peso: "30kg" }
+        { id:1,idEjercicio: 1, repeticiones: 12, series: 4, peso: "40kg" },
+        {id:2, idEjercicio: 2, repeticiones: 10, series: 3, peso: "30kg" }
       ],
       fechaCreacion: "2025-09-15T09:00:00Z"
     },
@@ -87,11 +87,12 @@ const db = {
       id: 2,
       idUsuario: 2,
       ejercicios: [
-        { idEjercicio: 3, repeticiones: 8, series: 5, peso: "70kg" },
-        { idEjercicio: 5, repeticiones: 15, series: 3, peso: "15kg" }
+        { id:1,idEjercicio: 3, repeticiones: 8, series: 5, peso: "70kg" },
+        { id:2,idEjercicio: 5, repeticiones: 15, series: 3, peso: "15kg" }
       ],
       fechaCreacion: "2025-09-16T11:00:00Z"
-    }
+    },
+    
   ],
 
   sesiones: [
