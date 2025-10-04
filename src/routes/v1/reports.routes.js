@@ -1,20 +1,14 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const reportsController = require('../../controllers/reports.controller');
-const authMiddleware = require('../../middleware/auth.middleware');
-const { login } = require("../../controllers/login.controller");
-const { logout } = require("../../controllers/logout.controller");
-//login
-router.post("/login", login)
-router.post("/logout", authMiddleware, logout)
+const reportsController = require("../../controllers/reports.controller");
 
 // GET /api/v1/reports
-router.get('/', authMiddleware,reportsController.getReports);
+router.get("/", reportsController.getReports);
 
 // GET /api/v1/reports/:id
-router.get('/:id',authMiddleware, reportsController.getReportById);
+router.get("/:id", reportsController.getReportById);
 
 // POST /api/v1/reports
-router.post('/',authMiddleware, reportsController.generateReport);
+router.post("/", reportsController.generateReport);
 
 module.exports = router;

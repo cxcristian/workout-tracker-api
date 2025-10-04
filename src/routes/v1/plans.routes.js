@@ -1,32 +1,21 @@
-const express = require("express")
-const router = express.Router()
-
-
-//importaciones de auth y token
-const authMiddleware = require("../../middleware/auth.middleware");
-const { login } = require("../../controllers/login.controller");
-const { logout } = require("../../controllers/logout.controller");
+const express = require("express");
+const router = express.Router();
 
 //controller
-const plansController = require("../../controllers/plans.controller")
-
-//POST de login - para autenticar
-router.post("/login",login)
-//POST desloguearse
-router.post("/logout",logout)
+const plansController = require("../../controllers/plans.controller");
 
 //obtener TODOS los planes
-router.get("/", authMiddleware, plansController.getPlans)
+router.get("/", plansController.getPlans);
 //Planes por id
-router.get("/:id", authMiddleware, plansController.getPlansId)
-module.exports = router;
+router.get("/:id", plansController.getPlansId);
 
 
 //Post plan
-router.post("/", authMiddleware, plansController.postPlan)
+router.post("/", plansController.postPlan);
 //put plan
-router.put("/:id", authMiddleware, plansController.putPlans)
+router.put("/:id", plansController.putPlans);
 //patch plan
-router.patch("/:id", authMiddleware, plansController.patchPlans)
+router.patch("/:id", plansController.patchPlans);
 //delete plan
-router.delete("/:id", authMiddleware, plansController.deletePlans)
+router.delete("/:id", plansController.deletePlans);
+module.exports = router;

@@ -1,37 +1,25 @@
-const express = require("express")
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 // importacion de los controlers
-const workoutsControllers = require("../../controllers/workouts.controller")
-//login y logout
-const { login} = require("../../controllers/login.controller")
-const { logout } = require("../../controllers/logout.controller")
-
-//auth
-const authMiddleware = require("../../middleware/auth.middleware")
+const workoutsControllers = require("../../controllers/workouts.controller");
 
 //gets de workouts
 
 //obtener todos los ejercicios
-router.get("/", authMiddleware, workoutsControllers.getWorkouts)
+router.get("/", workoutsControllers.getWorkouts);
 //obtener la vaina por id
-router.get("/:id", authMiddleware, workoutsControllers.getWorkoutsById)
-
-//===============
-//Post login y logout
-router.post("/login", login )
-router.post("/logout",authMiddleware, logout)
+router.get("/:id", workoutsControllers.getWorkoutsById);
 
 //Post para crear un ejercicio
-router.post("/", authMiddleware, workoutsControllers.createWorkout)
+router.post("/", workoutsControllers.createWorkout);
 
 //put
-router.put("/:id", authMiddleware, workoutsControllers.updateWorkout)
+router.put("/:id", workoutsControllers.updateWorkout);
 
 //patch
-router.patch("/:id", authMiddleware, workoutsControllers.patchWorkout)
+router.patch("/:id", workoutsControllers.patchWorkout);
 
 //delete
-router.delete("/:id", authMiddleware, workoutsControllers.deleteWorkout)
+router.delete("/:id", workoutsControllers.deleteWorkout);
 
-
-module.exports = router
+module.exports = router;

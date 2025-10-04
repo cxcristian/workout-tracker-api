@@ -8,7 +8,7 @@ const getWorkouts = (req, res) => {
   let resultados = [...workouts]; // copiamos el array original
 
   const { id, nombre, descripcion, categoria } = req.query;
-
+  
   //filtro por id
   if (id) {
     resultados = resultados.filter((u) =>
