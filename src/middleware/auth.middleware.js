@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> feat/reports
+=======
+>>>>>>> feat/plans
 const jwt = require("jsonwebtoken");
 const { tokens } = require("../controllers/logout.controller"); // lista de tokens activos
 
@@ -44,4 +47,8 @@ function authMiddleware(req, res, next) {
   }
 }
 
+<<<<<<< HEAD
 module.exports = authMiddleware;
+=======
+module.exports = authMiddleware;
+>>>>>>> feat/plans

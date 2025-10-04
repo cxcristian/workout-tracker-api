@@ -23,4 +23,7 @@ router.use("/sessions", sessionsRoutes);
 const reportsRoutes = require("./reports.routes");
 router.use("/reports", reportsRoutes);
 
+const plansRoutes = require("./plans.routes");
+router.use("/plans", plansRoutes);
+
 module.exports = router;
