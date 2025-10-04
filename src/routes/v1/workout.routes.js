@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 // importacion de los controlers
-const workoutsControllers = require("../../controllers/workouts.controllers")
+const workoutsControllers = require("../../controllers/workouts.controller")
 //login y logout
 const { login} = require("../../controllers/login.controller")
 const { logout } = require("../../controllers/logout.controller")

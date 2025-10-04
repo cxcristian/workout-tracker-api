@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> feat/reports
 const jwt = require("jsonwebtoken");
 const { tokens } = require("../controllers/logout.controller"); // lista de tokens activos
 
@@ -40,6 +44,4 @@ function authMiddleware(req, res, next) {
   }
 }
 
-
 module.exports = authMiddleware;
-
