@@ -10,5 +10,12 @@ const usersRoutes = require("./users.routes")
 //configuracion de las rutas
 router.use("/users", usersRoutes)
 
-//exportacion de router
+
+//importacion de workouts.routes
+const workoutRoutes = require("./workout.routes")
+//si "workouts" esta en los parametros entonces vamos al archivo que manejara los metodos HTTP
+
+router.use("/workouts", workoutRoutes)
+
+
 module.exports = router
