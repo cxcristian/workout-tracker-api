@@ -7,7 +7,7 @@ const express = require("express")//importacion de express, commonjs
 const app = express()//creamos una instancia de express, donde app tiene todo de express
 //se comenta el puerto ya que no se tiene que inicializar al ser llamado de nuestro config/env.js
 //const port = 8000 //puerto de escucha
-//Inicializacion del servidor
+//Inicializacion del servidor primer commit
 
 app.get("/", (req, res)=>{
     res.send("Hola mi servidor de express")
