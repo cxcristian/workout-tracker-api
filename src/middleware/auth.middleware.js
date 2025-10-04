@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> feat/reports
-=======
->>>>>>> feat/plans
 const jwt = require("jsonwebtoken");
 const { tokens } = require("../controllers/logout.controller"); // lista de tokens activos
 
@@ -18,7 +11,6 @@ const SECRET = process.env.JWT_SECRET || "Gato_Super_Negro";
  * - Si el token no es válido, está expirado o fue logout, devuelve 401.
  */
 function authMiddleware(req, res, next) {
-  
   const authHeader = req.headers["authorization"];
   if (!authHeader) {
     return res.status(401).json({ error: "No hay token de autorización" });
@@ -47,8 +39,4 @@ function authMiddleware(req, res, next) {
   }
 }
 
-<<<<<<< HEAD
 module.exports = authMiddleware;
-=======
-module.exports = authMiddleware;
->>>>>>> feat/plans
